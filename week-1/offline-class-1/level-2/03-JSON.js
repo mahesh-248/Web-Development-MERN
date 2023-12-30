@@ -15,3 +15,5 @@ const sampleJSONString =
   '{"key": "value", "number": 42, "nested": {"nestedKey": "nestedValue"}}';
 
 jsonMethods(sampleJSONString);
+let t={category:"food",price:20};
+console.log(t);

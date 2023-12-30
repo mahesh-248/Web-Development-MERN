@@ -18,7 +18,7 @@ function dateMethods() {
   console.log("After setMonth:", currentDate);
 
   // Getting and setting time in milliseconds since 1970
-  console.log("Time in milliseconds since 1970:", currentDate.getTime());
+  console.log("Time in milliseconds since 1970:", currentDate.getTime()/(1000*60*60*24*365));
 
   const newDate = new Date(2023, 8, 15); // Creating a new date
   console.log("New Date:", newDate);

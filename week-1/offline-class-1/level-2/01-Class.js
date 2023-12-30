@@ -10,3 +10,5 @@ class Animal {
 }
 
 
+let a=new Animal("Mahesh",2);
+console.log(a.describe());
