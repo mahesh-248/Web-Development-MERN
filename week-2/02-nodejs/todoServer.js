@@ -41,9 +41,56 @@
  */
   const express = require('express');
   const bodyParser = require('body-parser');
+  const fs = require('fs');
   
   const app = express();
   
   app.use(bodyParser.json());
   
+  app.get('/',(req,res)=>{
+    console.log("Hi there!!");
+  });
+
+  app.get('/todos/',(req,res)=>{
+    fs.readFile('todos.json','utf-8',(err,data)=>{
+      if(err) throw err;
+      res.json(JSON.parse(data));
+      // console.log(JSON.parse(data));
+    })
+  });
+
+  app.get('/todos/:id',(req,res)=>{
+    const id=req.params.id;
+    // console.log(parseInt(id));
+    fs.readFile('todos.json','utf-8',(err,data)=>{
+      const tdata=JSON.parse(data);
+      const ttdata=tdata.filter((item)=>
+        item.id==id
+      )
+      if(ttdata.length==0){
+        res.status(404).send("Given ID is not present");
+      }
+      else res.json(ttdata[0]);
+    })
+  });
+
+  app.post('/todos/',(req,res)=>{
+    const nitem={
+      id: Math.floor(Math.random()*100000000),
+      title:req.body.title,
+      description:req.body.description
+    };
+    fs.readFile('todos.json','utf-8',(err,data)=>{
+      if(err) throw err;
+      let tdata=JSON.parse(data);
+      tdata.push(nitem);
+      fs.writeFile('todos.json',JSON.stringify(tdata),(e)=>{
+        if(e) throw e;
+        else res.status(201).json(nitem);
+      });
+    });
+  });
+
+  app.listen(3000);
+
   module.exports = app;

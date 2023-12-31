@@ -17,5 +17,19 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 
+app.get('/',(req,res)=>{
+  res.send("Hi there");
+})
+app.get('/files/',(req,res)=>{
+  const folderpath=__dirname+'/files';
+  fs.readdir(folderpath,(err,files)=> {
+    // files.forEach(file=>{
+    //   console.log(file);
+    // })
+    res.json(files);
+  })
+})
+app.listen(3000);
+// console.log(path.join(__dirname,'/files/'));
 
 module.exports = app;
