@@ -6,19 +6,84 @@
  */
 
 function wait1(t) {
-
+    return new Promise(resolve=>{
+        setTimeout(resolve,t*1000,"1");
+    })
 }
 
 function wait2(t) {
-
+    return new Promise(resolve=>{
+        setTimeout(resolve,t*1000,"2");
+    })
 }
 
 function wait3(t) {
-
+    return new Promise(resolve=>{
+        setTimeout(resolve,t*1000,"3");
+    })
 }
 
 function calculateTime(t1, t2, t3) {
-
+    const s=Date.now();
+    wait1(t1).then(()=>{
+        wait2(t2);
+    }).then(()=>{
+        wait3(t3);
+    }).then(()=>{
+        const e=Date.now();
+        return Math.abs(e-s);
+    }).catch((error)=>{
+        console.log(error);
+    })
 }
+
+// function wait1(t) {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(`Promise 1 resolved after ${t} seconds`);
+//     }, t * 1000);
+//   });
+// }
+
+// function wait2(t) {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(`Promise 2 resolved after ${t} seconds`);
+//     }, t * 1000);
+//   });
+// }
+
+// function wait3(t) {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(`Promise 3 resolved after ${t} seconds`);
+//     }, t * 1000);
+//   });
+// }
+
+// function calculateTime(t1, t2, t3) {
+//   const startTime = Date.now();
+
+//   return wait1(t1)
+//     .then(() => wait2(t2))
+//     .then(() => wait3(t3))
+//     .then(() => {
+//       const endTime = Date.now();
+//       return endTime - startTime;
+//     })
+//     .catch((error) => {
+//       console.error('Error:', error);
+//     });
+// }
+
+// Example usage
+// calculateTime(2, 3, 1)
+//   .then((timeTaken) => {
+//     console.log(`Total time taken: ${timeTaken} milliseconds`);
+//   })
+//   .catch((error) => {
+//     console.error('Error:', error);
+//   });
+
 
 module.exports = calculateTime;
