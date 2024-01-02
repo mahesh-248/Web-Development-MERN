@@ -16,6 +16,24 @@ setInterval(() => {
     numberOfRequestsForUser = {};
 }, 1000)
 
+function ratelimitter(req,res,next){
+  const userid=req.header.user-id;
+  const ctime= Date.now();
+  if(!numberOfRequestsForUser[userid].length){
+    numberOfRequestsForUser[userid]= [ctime];
+  }
+  else{
+    numberOfRequestsForUser[userid] = numberOfRequestsForUser[userid].filter(time => ctime-time <1000);
+    if(numberOfRequestsForUser[userid].length>5){
+      return res.status(404).send("User has crossed maximum number of limits");
+    }
+    numberOfRequestsForUser[userid].push(ctime);
+  }
+  next();
+}
+
+app.use(ratelimitter);
+
 app.get('/user', function(req, res) {
   res.status(200).json({ name: 'john' });
 });
