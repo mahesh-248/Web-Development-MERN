@@ -7,8 +7,8 @@
     let todoState = [];
     let oldTodoState = [];
 
-    function addTodoToDom() {
-      
+    function addTodoToDom(arr) {
+      document.getElementById("todos").innerHTML= document.getElementById("todos").innerHTML + arr[0]
     }
 
     function removeTodoFromDom(todo) {
@@ -25,6 +25,13 @@
       // 1. added
       // 2. deleted
       // 3. updated
+      const n= newTodos.length - 1
+      const req= newTodos[n];
+      for(const i=0;i<n-1;i++){
+        if(newTodos[i].title==req.title && newTodos[i].description==req.description){
+
+        }
+      }
       const added = [];
       const deleted = [];
       const updated = [];
